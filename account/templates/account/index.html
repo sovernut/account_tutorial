@@ -1,1 +1,5 @@
-{{ contentinHTML }}
+<ul>
+{% for a in account %}
+    <li><a href="{% url 'detail' a.id  %}">{{ a }}</a></li>
+{% endfor %}
+</ul>
