@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Account,Transaction
 from django.urls import reverse
+from django.utils import timezone # for adding transaction
 
 def index(request):
     account = Account.objects.order_by('-account_name')
@@ -42,4 +43,20 @@ def editname(request,account_id):
     else:
         account.account_name = get_name
         account.save()
+    return HttpResponseRedirect(reverse('detail', args=(account_id,)))
+    
+def add_transaction(request,account_id):
+    account = get_object_or_404(Account, pk=account_id)
+    try:
+        get_detail = request.POST['detail']
+        get_value = int(request.POST['value'])
+        get_ttype = request.POST['t_type']
+    except:
+        pass
+    else:
+        if get_ttype == 'expense':
+            get_value = -1*get_value
+        account.total = account.total + get_value
+        account.save()
+        account.transaction_set.create(detail=get_detail,value=get_value,date=timezone.now())
     return HttpResponseRedirect(reverse('detail', args=(account_id,)))

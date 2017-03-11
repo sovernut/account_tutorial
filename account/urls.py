@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^addaccount$', views.add_account, name='add_account'),
     url(r'^delaccount$', views.del_account, name='del_account'),
     url(r'^editname/(?P<account_id>[0-9]+)$',views.editname,name='editname'),
+    url(r'^(?P<account_id>[0-9]+)/add_trans$',views.add_transaction,name='addtrans'),
 ]

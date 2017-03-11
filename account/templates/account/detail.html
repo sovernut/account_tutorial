@@ -1,5 +1,6 @@
 <h1> Hello {{ account.account_name }}</h1>
 
+{# ------------------ Show all Transaction ------------------ #}
 <table>
 {% for detail_list in account.transaction_set.all %}
     <tr><td>{{ detail_list.date }}</td><td>{{ detail_list.detail }}</td>
@@ -10,12 +11,25 @@
     {% endif %}</tr>
 {% endfor %}
 </table>
-
+Total : {{ account.total }}
+{# ------------------Add Transaction ------------------ #}
+<h1>Add Transaction</h1>
+<form action="{% url 'addtrans' account.id %}" method="post">
+{% csrf_token %}
+<br>รายละเอียด
+<input type="text" class="textinput" name="detail"/>
+<br>จำนวนเงิน
+<input type="number" class="textinput" name="value"/><br>
+ชนิด<br>
+  <input type="radio" name="t_type" value="income"> รายรับ
+  <input type="radio" name="t_type" value="expense"> รายจ่าย<br>
+<input type="submit" class="button" value="Add transaction" />
+</form>
 {# ------------------Edit Name------------------ #}
 
 <form action="{% url 'editname' account.id %}" method="post">
 {% csrf_token %}
-<h1>Edit Account name : </h1>
+<h1>Edit Account name</h1>
 Name:
 <br>
 <input type="text" class="textinput" name="name"/>
