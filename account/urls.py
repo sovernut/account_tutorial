@@ -2,7 +2,9 @@ from django.conf.urls import url
 
 from . import views
 
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^(?P<account_id>[0-9]+)$', views.detail, name='detail'),
+    url(r'^addaccount$', views.add_account, name='add_account'),
 ]
