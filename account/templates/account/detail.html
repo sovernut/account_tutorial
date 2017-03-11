@@ -10,3 +10,14 @@
     {% endif %}</tr>
 {% endfor %}
 </table>
+
+{# ------------------Edit Name------------------ #}
+
+<form action="{% url 'editname' account.id %}" method="post">
+{% csrf_token %}
+<h1>Edit Account name : </h1>
+Name:
+<br>
+<input type="text" class="textinput" name="name"/>
+<input type="submit" class="button" value="Edit" />
+</form>

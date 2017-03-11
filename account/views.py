@@ -32,3 +32,14 @@ def del_account(request):
         a = Account.objects.get(id=get_id)
         a.delete()
     return HttpResponseRedirect(reverse('index'))
+    
+def editname(request,account_id):
+    account = get_object_or_404(Account, pk=account_id)
+    try:
+        get_name = request.POST['name']
+    except:
+        error = 1
+    else:
+        account.account_name = get_name
+        account.save()
+    return HttpResponseRedirect(reverse('detail', args=(account_id,)))
