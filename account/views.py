@@ -15,9 +15,20 @@ def add_account(request):
     try:
         get_name = request.POST['account_name']
     except:
-        error_msg = "Error !"
+        error_msg = "Error! account name."
     else:
         if get_name.isalpha():
             a = Account(account_name=get_name,total=0)
             a.save()
+    return HttpResponseRedirect(reverse('index'))
+    
+def del_account(request):
+    error_msg = ""
+    try:
+        get_id = request.POST['account_id']
+    except:
+        error_msg = "Error! account delete."
+    else:
+        a = Account.objects.get(id=get_id)
+        a.delete()
     return HttpResponseRedirect(reverse('index'))
